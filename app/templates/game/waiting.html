@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center; margin-top: 100px;">
+    <h1 class="title">WAITING FOR APPROVAL...</h1>
+    <div class="card" style="max-width: 600px; margin: 0 auto; margin-top: 30px; padding: 40px;">
+        <div style="font-size: 4rem; margin-bottom: 20px;">⏳</div>
+        <p style="font-size: 1.2rem;">Hello <strong>{{ team.name }}</strong>!</p>
+        <p>Your registration has been received.</p>
+        <p>Please wait while Supratim Ghosh and Swaraj Roy verify your details.</p>
+        <p style="color: #888; font-size: 0.9rem; margin-top: 20px;">(This page will refresh automatically)</p>
+    </div>
+</div>
+
+<script>
+    const teamId = "{{ team.id }}";
+
+    function checkStatus() {
+        fetch(`/api/status/${teamId}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'approved') {
+                    window.location.href = "/quiz";
+                } else if (data.status === 'rejected') {
+                    alert("Your registration was rejected by the admin. Please register again.");
+                    window.location.href = "/";
+                }
+            })
+            .catch(err => console.error("Error checking status:", err));
+    }
+
+    // Poll every 2 seconds
+    setInterval(checkStatus, 2000);
+</script>
+{% endblock %}

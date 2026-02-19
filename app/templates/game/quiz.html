@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block content %}
+<a href="/" class="exit-btn"
+    onclick="return confirm('Are you sure you want to quit? This will reset your progress.');">← Exit</a>
+<div class="timer-container" id="timer">20:00</div>
+
+<div class="container" style="margin-top: 60px;">
+    <h2 class="title" style="font-size: 2rem;">Question <span id="q-number">1</span></h2>
+
+    <div id="question-container" class="card"
+        style="min-height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+        <h3 id="question-text" style="text-align: center;">Loading...</h3>
+        <img id="question-image" src="" style="max-width: 100%; max-height: 300px; display: none; margin-bottom: 20px;">
+
+        <div id="answer-input-container" style="width: 100%; margin-top: 20px; text-align: center;">
+            <!-- Injected by JS -->
+        </div>
+
+        <div class="question-meta">
+            <span>Points: <b id="q-points">0</b></span>
+            <span class="meta-divider">|</span>
+            <span>Difficulty: <b id="q-difficulty"></b></span>
+        </div>
+    </div>
+
+    <div class="nav-buttons">
+        <button id="prev-btn" onclick="prevQuestion()" disabled>&lt; Prev</button>
+        <button id="next-btn" onclick="nextQuestion()">Next &gt;</button>
+    </div>
+
+    <!-- Standalone submit removed. Use Next/Finish button. -->
+</div>
+
+<script>
+    // Server-synced time
+    const initialSeconds = parseInt("{{ remaining_seconds }}", 10);
+</script>
+<script src="{{ url_for('static', path='/js/game.js') }}"></script>
+{% endblock %}

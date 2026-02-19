@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PuzzleMania</title>
+    <link rel="icon" type="image/png" href="{{ url_for('static', path='/img/Logo.png') }}">
+    <link rel="stylesheet" href="{{ url_for('static', path='/css/style.css') }}?v=curbrain11">
+</head>
+
+<body>
+    <!-- Navigation Bar -->
+    {% if request.url.path != '/quiz' %}
+    <nav class="navbar">
+        {% if user %}
+        <a href="/admin/dashboard" class="nav-brand" style="text-decoration: none;">
+            <img src="{{ url_for('static', path='/img/Logo.png') }}" alt="CurBrain Logo" class="brand-logo">
+            <span class="brand-text">CUrBrain</span>
+        </a>
+        {% else %}
+        <a href="/" class="nav-brand" style="text-decoration: none;">
+            <img src="{{ url_for('static', path='/img/Logo.png') }}" alt="CurBrain Logo" class="brand-logo">
+            <span class="brand-text">CUrBrain</span>
+        </a>
+        {% endif %}
+        <div class="nav-links">
+            <a href="/auth/login?ref=nav" class="nav-link">Admin</a>
+            {% if request.url.path != '/leaderboard' %}
+            <a href="/leaderboard" class="nav-link">Leaderboard</a>
+            {% endif %}
+            <button onclick="openFeedback()" class="nav-link feedback-btn">Feedback</button>
+        </div>
+    </nav>
+    {% endif %}
+
+    <div class="container {% if request.url.path != '/quiz' %}content-with-nav{% endif %}">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- Feedback Modal -->
+    <div id="feedback-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content card">
+            <h2>Anonymous Feedback</h2>
+            <p>Tell us what you think!</p>
+            <textarea id="feedback-text" rows="4" placeholder="Type your thoughts here..."></textarea>
+            <div class="modal-actions">
+                <button onclick="closeFeedback()"
+                    style="background: transparent; border: 1px solid var(--glass-border);">Cancel</button>
+                <button onclick="submitFeedback()">Send 🚀</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 <strong>CUrBrain</strong>. All rights reserved.</p>
+        <p style="font-size: 0.9rem; opacity: 0.7;">Made by <span class="creator-text">Supratim</span></p>
+    </footer>
+
+    <script src="{{ url_for('static', path='/js/game.js') }}?v=curbrain"></script>
+</body>
+
+</html>

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title" style="text-align: center;">LIVE LEADERBOARD</h1>
+
+<div class="card" style="margin-top: 30px;">
+    <div style="overflow-x: auto;">
+        <table id="leaderboard-table">
+            <thead>
+                <tr>
+                    <th>Rank</th>
+                    <th>Name</th>
+                    <th>Score</th>
+                    <th>Time Taken</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td colspan="4" style="text-align: center;">Loading data...</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center; margin-top: 50px;">
+    <h1 class="title">PUZZLE MANIA</h1>
+    <p style="font-size: 1.5rem;">Join the Chaos!</p>
+
+    <div class="card" style="max-width: 500px; margin: 0 auto; margin-top: 30px;">
+        {% if error %}
+        <p style="color: var(--primary);">{{ error }}</p>
+        {% endif %}
+        <form action="/start" method="post">
+            <label style="font-size: 1.2rem;">ENTER YOUR NAME:</label>
+            <input type="text" name="team_name" placeholder="e.g. The Null Pointers" required
+                style="text-align: center; margin-bottom: 15px;">
+
+            <label style="font-size: 1.2rem;">ROLL NUMBER:</label>
+            <input type="text" name="roll_number" placeholder="e.g. 123456" required
+                style="text-align: center; margin-bottom: 15px;">
+
+            <label style="font-size: 1.2rem;">RC NUMBER:</label>
+            <input type="text" name="rc_number" placeholder="e.g. RC-001" required style="text-align: center;">
+            <br><br>
+            <button type="submit" style="width: 100%; font-size: 1.5rem;">START GAME</button>
+        </form>
+    </div>
+
+    <div style="margin-top: 50px;">
+    </div>
+</div>
+{% endblock %}

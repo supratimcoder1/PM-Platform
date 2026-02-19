@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div style="text-align: center; margin-top: 100px;">
+    {% if team %}
+    <h1 class="title">MISSION COMPLETE</h1>
+    <div class="card">
+        <h2>Name: {{ team.name }}</h2>
+        <p style="font-size: 2rem; color: var(--accent);">Score: {{ team.score }} pts</p>
+        <p>Time Taken: {{ time_formatted }}</p>
+    </div>
+    {% else %}
+    <h1 class="title">ERROR</h1>
+    <p>Session not found.</p>
+    {% endif %}
+
+    <div style="margin-top: 50px;">
+        <a href="/leaderboard"><button>VIEW LEADERBOARD</button></a>
+    </div>
+</div>
+{% endblock %}

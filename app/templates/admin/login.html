@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h1 class="title">Admin Login</h1>
+<div class="card" style="max-width: 400px; margin: 0 auto;">
+    {% if error %}
+    <p style="color: red;">{{ error }}</p>
+    {% endif %}
+    <form action="/auth/login" method="post">
+        <label>Username:</label>
+        <input type="text" name="username" required>
+        <label>Password:</label>
+        <input type="password" name="password" required>
+        <button type="submit">Enter the Matrix</button>
+    </form>
+    <!-- Hint for first run -->
+    <!-- Credentials saved in admin_credentials.txt -->
+</div>
+{% endblock %}
