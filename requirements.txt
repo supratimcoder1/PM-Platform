@@ -10,4 +10,5 @@ requests
 itsdangerous
 pandas
 openpyxl
+psycopg2-binary
 

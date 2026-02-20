@@ -12,6 +12,11 @@ router = APIRouter(tags=["Game"])
 class FeedbackInput(SQLModel):
     content: str
 
+@router.get("/health")
+def health_check():
+    """Lightweight health check — no DB queries. Used by keep-alive pinger."""
+    return {"status": "ok"}
+
 @router.post("/api/feedback")
 def submit_feedback(data: FeedbackInput, session: Session = Depends(get_session)):
     feedback_entry = Feedback(content=data.content)
