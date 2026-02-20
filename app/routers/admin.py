@@ -1,13 +1,21 @@
 import shutil
 import uuid
-from datetime import datetime
-import pandas as pd
 import io
+from datetime import datetime
+from pathlib import Path
+from typing import Optional
+
+import pandas as pd
 from fastapi import APIRouter, Request, Form, File, UploadFile, Depends, status
 from fastapi.responses import RedirectResponse, StreamingResponse
 from sqlmodel import Session, select
+
 from app.database import get_session
 from app.models import Question, Team
+from app.dependencies import templates, get_current_user
+
+UPLOAD_DIR = Path("static/img/uploads")
+UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
 from app.dependencies import templates, get_current_user
 
 router = APIRouter(prefix="/admin", tags=["Admin"])
@@ -169,16 +177,13 @@ async def add_question(
     # Handle Image Upload
     image_path = None
     if image_file and image_file.filename:
-        upload_dir = Path("static/img/uploads")
-        upload_dir.mkdir(parents=True, exist_ok=True)
-        
         # Generate unique filename
         file_extension = Path(image_file.filename).suffix
         if not file_extension:
             file_extension = ".png" # Default fallback
             
         new_filename = f"{uuid.uuid4().hex}{file_extension}"
-        file_path = upload_dir / new_filename
+        file_path = UPLOAD_DIR / new_filename
         
         with open(file_path, "wb") as buffer:
             shutil.copyfileobj(image_file.file, buffer)

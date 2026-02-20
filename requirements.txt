@@ -11,4 +11,3 @@ itsdangerous
 pandas
 openpyxl
 
-a2wsgi
