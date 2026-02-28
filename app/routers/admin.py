@@ -14,8 +14,13 @@ from app.database import get_session
 from app.models import Question, Team
 from app.dependencies import templates, get_current_user
 
-UPLOAD_DIR = Path("static/img/uploads")
-UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+import os
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+UPLOAD_DIR = Path(os.path.join(BASE_DIR, "static", "img", "uploads"))
+try:
+    UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+except OSError:
+    pass
 from app.dependencies import templates, get_current_user
 
 router = APIRouter(prefix="/admin", tags=["Admin"])
