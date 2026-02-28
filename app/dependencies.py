@@ -1,10 +1,12 @@
 from fastapi import Request, Depends, HTTPException, status
+import os
 from fastapi.templating import Jinja2Templates
 from sqlmodel import Session, select
 from app.database import get_session
 from app.models import Admin
 
-templates = Jinja2Templates(directory="app/templates")
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+templates = Jinja2Templates(directory=os.path.join(BASE_DIR, "app", "templates"))
 
 def get_current_user(request: Request, session: Session = Depends(get_session)):
     username = request.session.get("user")
